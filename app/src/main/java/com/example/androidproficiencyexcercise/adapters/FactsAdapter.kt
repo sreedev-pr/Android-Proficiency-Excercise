@@ -23,6 +23,7 @@ class FactsAdapter(
     private var factList: MutableList<Facts>?,
     private val context: Context
 ) : BaseAdapter() {
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var returnView = convertView
         val itemFactBinding: ItemFactBinding

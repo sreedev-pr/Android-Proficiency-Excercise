@@ -24,7 +24,7 @@
             android:layout_toStartOf="@id/image_fact"
             android:text="@{responseModel.title}"
             android:textColor="@android:color/holo_blue_dark"
-            android:textSize="@dimen/dimen_18sp"
+            android:textSize="@dimen/dimen_20sp"
             tools:text="Sample text for title" />
 
         <TextView

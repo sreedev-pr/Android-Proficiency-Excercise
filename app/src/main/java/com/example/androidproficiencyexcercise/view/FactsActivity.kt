@@ -49,6 +49,9 @@ class FactsActivity : AppCompatActivity() {
         activityFactsBinding.swipeRefreshLayout.isRefreshing = false
     }
 
+    /**
+     * Function to set swipe to refresh listener
+     */
     private fun setSwipeLayoutListener() {
         activityFactsBinding.swipeRefreshLayout.setOnRefreshListener {
             activityFactsBinding.swipeRefreshLayout.isRefreshing = false
@@ -108,7 +111,7 @@ class FactsActivity : AppCompatActivity() {
     }
 
     /**
-     * Function to set actionbar TITLE
+     * Function to set actionbar title
      */
     private fun setUpActionBar(title: String?) {
         val actionBar = supportActionBar

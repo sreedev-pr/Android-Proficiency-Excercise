@@ -5,5 +5,5 @@
     <dimen name="dimen_5dp">5dp</dimen>
     <dimen name="dimen_150dp">150dp</dimen>
     <dimen name="dimen_75dp">75dp</dimen>
-    <dimen name="dimen_18sp">18sp</dimen>
+    <dimen name="dimen_20sp">20sp</dimen>
 </resources>
