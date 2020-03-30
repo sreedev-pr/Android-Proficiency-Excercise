@@ -7,10 +7,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.androidproficiencyexcercise.R
+import com.example.androidproficiencyexcercise.adapters.FactsAdapter
 import com.example.androidproficiencyexcercise.databinding.ActivityFactsBinding
 import com.example.androidproficiencyexcercise.events.LoadingFinishedEvent
+import com.example.androidproficiencyexcercise.model.Facts
 import com.example.androidproficiencyexcercise.model.FactsResponseModel
 import com.example.androidproficiencyexcercise.viewmodel.FactsViewModel
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -22,6 +25,18 @@ class FactsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initDataBinding()
         callFactsApi()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // Register activity with eventbus
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // Unregister activity with eventbus
+        EventBus.getDefault().unregister(this)
     }
 
     /**
@@ -71,6 +86,16 @@ class FactsActivity : AppCompatActivity() {
      * @param factsResponseModel data to be passed to adapter
      */
     private fun setUpFactsListView(factsResponseModel: FactsResponseModel?) {
+        when (val factsAdapter = activityFactsBinding.listFacts.adapter) {
+            null -> activityFactsBinding.listFacts.adapter = FactsAdapter(
+                factsResponseModel!!.rows as MutableList<Facts>?,
+                this
+            )
+            else -> {
+                factsAdapter as FactsAdapter
+                factsAdapter.updateFacts(factsResponseModel!!.rows as MutableList<Facts>?)
+            }
+        }
     }
 
     /**
