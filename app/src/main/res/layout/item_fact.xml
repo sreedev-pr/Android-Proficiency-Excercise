@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="responseModel"
+            type="com.example.androidproficiencyexcercise.model.Facts" />
+
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout_fact"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/dimen_10dp">
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/image_fact"
+            android:text="@{responseModel.title}"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="@dimen/dimen_18sp"
+            tools:text="Sample text for title" />
+
+        <TextView
+            android:id="@+id/text_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_title"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="@dimen/dimen_5dp"
+            android:layout_toStartOf="@id/image_fact"
+            android:text="@{responseModel.description}"
+            tools:text="Sample text for description" />
+
+        <ImageView
+            android:id="@+id/image_fact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/description_image_fact"
+            android:maxWidth="@dimen/dimen_150dp"
+            android:maxHeight="@dimen/dimen_75dp" />
+
+    </RelativeLayout>
+</layout>

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">AndroidProficiencyExcercise</string>
     <string name="no_data_found">No data found</string>
+    <string name="description_image_fact">Image shown for fact</string>
 </resources>
