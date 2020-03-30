@@ -11,7 +11,7 @@ import com.example.androidproficiencyexcercise.model.FactsResponseModel
 /**
  * ViewModel class for FactsActivity
  */
-class FactsViewModel : ViewModel() {
+open class FactsViewModel : ViewModel() {
     /**
      *  Live data listening to api call changes
      */

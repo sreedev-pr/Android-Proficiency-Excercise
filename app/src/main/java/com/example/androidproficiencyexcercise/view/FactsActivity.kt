@@ -17,9 +17,9 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class FactsActivity : AppCompatActivity() {
+open class FactsActivity : AppCompatActivity() {
     private lateinit var activityFactsBinding: ActivityFactsBinding
-    private lateinit var factsViewModel: FactsViewModel
+    open lateinit var factsViewModel: FactsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

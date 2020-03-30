@@ -19,7 +19,7 @@ import com.example.androidproficiencyexcercise.model.Facts
  * @param factList List of facts returned from api response
  * @param context Context of activity calling adapter
  */
-class FactsAdapter(
+open class FactsAdapter(
     private var factList: MutableList<Facts>?,
     private val context: Context
 ) : BaseAdapter() {
