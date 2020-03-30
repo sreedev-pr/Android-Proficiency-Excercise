@@ -68,4 +68,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava:$rootProject.rxJavaVersion"
 
+    //EventBus
+    implementation "org.greenrobot:eventbus:$rootProject.eventBusVersion"
+
 }

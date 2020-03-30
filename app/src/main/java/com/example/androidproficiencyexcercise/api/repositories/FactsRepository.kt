@@ -3,7 +3,9 @@ package com.example.androidproficiencyexcercise.api.repositories
 import androidx.lifecycle.MutableLiveData
 import com.example.androidproficiencyexcercise.api.service.APIService
 import com.example.androidproficiencyexcercise.api.service.RetrofitService
+import com.example.androidproficiencyexcercise.events.LoadingFinishedEvent
 import com.example.androidproficiencyexcercise.model.FactsResponseModel
+import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Response
 
@@ -26,7 +28,7 @@ object FactsRepository {
             override fun onFailure(call: Call<FactsResponseModel>, throwable: Throwable) {
                 val factsResponseModel = FactsResponseModel()
                 factsMutableLiveData.value = factsResponseModel
-
+                EventBus.getDefault().post(LoadingFinishedEvent())
             }
 
             override fun onResponse(
@@ -34,6 +36,8 @@ object FactsRepository {
                 response: Response<FactsResponseModel>
             ) {
                 factsMutableLiveData.value = response.body()
+                EventBus.getDefault().post(LoadingFinishedEvent())
+
             }
 
         })

@@ -1,14 +1,18 @@
 package com.example.androidproficiencyexcercise.view
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.androidproficiencyexcercise.R
 import com.example.androidproficiencyexcercise.databinding.ActivityFactsBinding
+import com.example.androidproficiencyexcercise.events.LoadingFinishedEvent
 import com.example.androidproficiencyexcercise.model.FactsResponseModel
 import com.example.androidproficiencyexcercise.viewmodel.FactsViewModel
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class FactsActivity : AppCompatActivity() {
     private lateinit var activityFactsBinding: ActivityFactsBinding
@@ -21,9 +25,28 @@ class FactsActivity : AppCompatActivity() {
     }
 
     /**
+     * Subscriber method for listening to api call completion
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(loadingEvent: LoadingFinishedEvent) {
+        toggleProgressBarVisibility(View.GONE)
+        activityFactsBinding.swipeRefreshLayout.isRefreshing = false
+    }
+
+    /**
+     * Function to set progressbar visibility
+     * @param progressBarVisibility visibility value as integer
+     */
+    private fun toggleProgressBarVisibility(progressBarVisibility: Int) {
+        activityFactsBinding.progressLoading.visibility =
+            progressBarVisibility
+    }
+
+    /**
      * Function to call api implemented in viewmodel
      */
     private fun callFactsApi() {
+        toggleProgressBarVisibility(View.VISIBLE)
         activityFactsBinding.factsViewModel!!.callGetFactsApi()
         subscribeToFactsApiCall()
     }
