@@ -1,5 +1,6 @@
 package com.example.androidproficiencyexcercise.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -24,21 +25,14 @@ open class FactsAdapter(
     private val context: Context
 ) : BaseAdapter() {
 
+    @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var returnView = convertView
-        val itemFactBinding: ItemFactBinding
-        when (returnView) {
-            null -> {
-                returnView = LayoutInflater.from(context).inflate(layout.item_fact, null)
-                itemFactBinding = DataBindingUtil.bind(returnView)!!
-                returnView!!.tag = itemFactBinding
-            }
-            else -> itemFactBinding = returnView.tag as ItemFactBinding
-        }
+        val itemFactBinding: ItemFactBinding = ItemFactBinding
+            .inflate(LayoutInflater.from(parent!!.context))
         setLayoutVisibility(itemFactBinding, position)
         itemFactBinding.responseModel = factList!![position]
         loadFactImage(itemFactBinding, position)
-        return returnView
+        return itemFactBinding.root
     }
 
     /**
