@@ -12,6 +12,7 @@ buildscript {
         appCompatVersion = "1.1.0"
         androidKTXVersion = "1.2.0"
         constraintLayoutVersion = "1.1.3"
+        swipeRefreshLayoutVersion = '1.0.0'
     }
     repositories {
         google()
