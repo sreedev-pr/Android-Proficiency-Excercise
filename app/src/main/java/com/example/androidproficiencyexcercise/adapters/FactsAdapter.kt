@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.androidproficiencyexcercise.R
 import com.example.androidproficiencyexcercise.R.layout
 import com.example.androidproficiencyexcercise.databinding.ItemFactBinding
 import com.example.androidproficiencyexcercise.model.Facts
@@ -37,8 +40,16 @@ class FactsAdapter(
         return returnView
     }
 
+    /**
+     * Load image into each row using Glide library
+     * @param itemFactBinding binding for row
+     * @param position listView position
+     */
     private fun loadFactImage(itemFactBinding: ItemFactBinding, position: Int) {
-
+        Glide.with(context)
+            .load(factList!![position].imageHref)
+            .apply(RequestOptions().placeholder(R.drawable.ic_placeholder))
+            .into(itemFactBinding.imageFact)
     }
 
     /**

@@ -24,6 +24,7 @@ class FactsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initDataBinding()
+        setSwipeLayoutListener()
         callFactsApi()
     }
 
@@ -47,6 +48,14 @@ class FactsActivity : AppCompatActivity() {
         toggleProgressBarVisibility(View.GONE)
         activityFactsBinding.swipeRefreshLayout.isRefreshing = false
     }
+
+    private fun setSwipeLayoutListener() {
+        activityFactsBinding.swipeRefreshLayout.setOnRefreshListener {
+            activityFactsBinding.swipeRefreshLayout.isRefreshing = false
+            callFactsApi()
+        }
+    }
+
 
     /**
      * Function to set progressbar visibility

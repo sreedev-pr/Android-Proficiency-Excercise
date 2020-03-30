@@ -18,7 +18,7 @@ buildscript {
         okhttpVersion = '4.4.1'
         rxJavaVersion = '2.1.0'
         eventBusVersion = '3.2.0'
-
+        glideVersion = '4.9.0'
     }
     repositories {
         google()
