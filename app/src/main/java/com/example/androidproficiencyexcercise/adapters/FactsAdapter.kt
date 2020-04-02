@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.androidproficiencyexcercise.R
-import com.example.androidproficiencyexcercise.R.layout
 import com.example.androidproficiencyexcercise.databinding.ItemFactBinding
 import com.example.androidproficiencyexcercise.model.Facts
+import com.example.androidproficiencyexcercise.utilities.StringUtils
 
 
 /**
@@ -21,7 +20,7 @@ import com.example.androidproficiencyexcercise.model.Facts
  * @param context Context of activity calling adapter
  */
 open class FactsAdapter(
-    private var factList: MutableList<Facts>?,
+    var factList: MutableList<Facts>?,
     private val context: Context
 ) : BaseAdapter() {
 
@@ -54,28 +53,29 @@ open class FactsAdapter(
      */
     private fun setLayoutVisibility(itemFactBinding: ItemFactBinding, position: Int) {
         when {
-            factList!![position].title.isNullOrEmpty() &&
-                    factList!![position].description.isNullOrEmpty() &&
-                    factList!![position].imageHref.isNullOrEmpty() -> {
-                deleteRow(position)
+            StringUtils.isValidString(factList!![position].title)
+                    || StringUtils.isValidString(factList!![position].description)
+                    || StringUtils.isValidString(factList!![position].imageHref) -> {
+                when {
+                    StringUtils.isValidString(factList!![position].title) ->
+                        itemFactBinding.textTitle.visibility =
+                            View.VISIBLE
+                    else -> itemFactBinding.textTitle.visibility = View.GONE
+                }
+                when {
+                    StringUtils.isValidString(factList!![position].description) ->
+                        itemFactBinding.textDescription.visibility =
+                            View.VISIBLE
+                    else -> itemFactBinding.textDescription.visibility = View.GONE
+                }
+                when {
+                    StringUtils.isValidString(factList!![position].imageHref) ->
+                        itemFactBinding.imageFact.visibility =
+                            View.VISIBLE
+                    else -> itemFactBinding.imageFact.visibility = View.GONE
+                }
             }
-            else -> {
-                when {
-                    factList!![position].title.isNullOrEmpty() ->
-                        itemFactBinding.textTitle.visibility = View.GONE
-                    else -> itemFactBinding.textTitle.visibility = View.VISIBLE
-                }
-                when {
-                    factList!![position].description.isNullOrEmpty() ->
-                        itemFactBinding.textDescription.visibility = View.GONE
-                    else -> itemFactBinding.textDescription.visibility = View.VISIBLE
-                }
-                when {
-                    factList!![position].imageHref.isNullOrEmpty() ->
-                        itemFactBinding.imageFact.visibility = View.GONE
-                    else -> itemFactBinding.imageFact.visibility = View.VISIBLE
-                }
-            }
+            else -> deleteRow(position)
         }
     }
 
@@ -86,7 +86,6 @@ open class FactsAdapter(
         if (!factList.isNullOrEmpty())
             this.factList!!.clear()
         this.factList = updatedFactList
-        notifyDataSetChanged()
     }
 
     /**

@@ -106,6 +106,7 @@ open class FactsActivity : AppCompatActivity() {
             else -> {
                 factsAdapter as FactsAdapter
                 factsAdapter.updateFacts(factsResponseModel!!.rows as MutableList<Facts>?)
+                factsAdapter.notifyDataSetChanged()
             }
         }
     }

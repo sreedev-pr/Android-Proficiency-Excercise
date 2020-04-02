@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.androidproficiencyexcercise.R
 import com.example.androidproficiencyexcercise.api.repositories.FactsRepository
 import com.example.androidproficiencyexcercise.model.FactsResponseModel
+import com.example.androidproficiencyexcercise.utilities.StringUtils
 
 /**
  * ViewModel class for FactsActivity
@@ -51,7 +52,7 @@ open class FactsViewModel : ViewModel() {
      * @return actionbar TITLE to be displayed
      */
     fun getActionBarTitle(title: String?, context: Context): String? {
-        return if (title != null && title.isNotEmpty()) {
+        return if (StringUtils.isValidString(title)) {
             title
         } else context.getString(R.string.app_name)
     }

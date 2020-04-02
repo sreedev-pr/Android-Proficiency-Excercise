@@ -9,12 +9,12 @@ import com.google.gson.annotations.SerializedName
  * Data model for mapping response received from facts api
  */
 @Keep
-class FactsResponseModel {
+open class FactsResponseModel {
     @SerializedName(APIConstants.TITLE)
     @Expose
     var title: String? = null
 
     @SerializedName(APIConstants.ROWS)
     @Expose
-    var rows: List<Facts>? = null
+    open var rows: List<Facts>? = null
 }

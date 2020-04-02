@@ -1,4 +1,4 @@
-package com.example.androidproficiencyexcercise
+package com.example.androidproficiencyexcercise.api
 
 import androidx.lifecycle.MutableLiveData
 import androidx.test.espresso.Espresso.onView
@@ -7,6 +7,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
+import com.example.androidproficiencyexcercise.R
 import com.example.androidproficiencyexcercise.model.FactsResponseModel
 import com.example.androidproficiencyexcercise.view.FactsActivity
 import com.google.gson.Gson
@@ -17,20 +18,16 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class FactsUnitTest {
-    private lateinit var nullJson: FactsResponseModel
-    private lateinit var json: FactsResponseModel
+class ApiUITest {
+    private lateinit var successJson: FactsResponseModel
+    private lateinit var errorJson: FactsResponseModel
+
     @get:Rule
     val factsActivityRule: ActivityTestRule<FactsActivity> =
         ActivityTestRule(FactsActivity::class.java)
 
-    private var nullResponse = "{\n" +
-            " \"title\": \"\",\n" +
-            " \"rows\": [\n" +
-            "   \n" +
-            " ]\n" +
-            "}"
-    private var responseString = "{\n" +
+
+    private var successResponse = "{\n" +
             "\"title\":\"About Canada\",\n" +
             "\"rows\":[\n" +
             "\t{\n" +
@@ -106,25 +103,32 @@ class FactsUnitTest {
             "]\n" +
             "}"
 
+    private var errorResponse = "{\n" +
+            " \"title\": \"\",\n" +
+            " \"rows\": [\n" +
+            "   \n" +
+            " ]\n" +
+            "}"
+
 
     @Before
     fun setup() {
-        json = Gson().fromJson(responseString, FactsResponseModel::class.java)
-        nullJson = Gson().fromJson(nullResponse, FactsResponseModel::class.java)
+        successJson = Gson().fromJson(successResponse, FactsResponseModel::class.java)
+        errorJson = Gson().fromJson(errorResponse, FactsResponseModel::class.java)
     }
 
     @Test
-    fun listView_isDisplayed() {
-        factsActivityRule.activity.factsViewModel.factsLiveData.postValue(json)
+    fun listViewIsDisplayed() {
+        factsActivityRule.activity.factsViewModel.factsLiveData.postValue(successJson)
         onView(ViewMatchers.withId(R.id.list_facts))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
-    fun noDataFound_isDisplayed() {
+    fun noDataFoundIsDisplayed() {
         val liveData = MutableLiveData<FactsResponseModel>()
-        liveData.postValue(nullJson)
-        factsActivityRule.activity.factsViewModel.factsLiveData.postValue(nullJson)
+        liveData.postValue(errorJson)
+        factsActivityRule.activity.factsViewModel.factsLiveData.postValue(errorJson)
         onView(ViewMatchers.withId(R.id.text_no_data_found))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
